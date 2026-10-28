@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 이 앱은 차량용(Android Automotive) 앱입니다 -->
+    <uses-feature android:name="android.hardware.type.automotive" android:required="true" />
+
+    <!-- Pleos Vehicle SDK: 읽기 전용 권한만 사용 (차량을 제어하지 않음) -->
+    <uses-permission android:name="pleos.car.permission.CAR_LIGHTS" />   <!-- 방향지시등 -->
+    <uses-permission android:name="pleos.car.permission.CAR_DRIVE" />    <!-- 브레이크·기어 -->
+    <uses-permission android:name="pleos.car.permission.CAR_ENERGY" />   <!-- 연비 -->
+    <uses-permission android:name="pleos.car.permission.CAR_SAFETY" />   <!-- 계기판 표시등(후측방 경고) -->
+    <uses-permission android:name="pleos.car.permission.CAR_SEATS" />    <!-- 운전석 안전벨트 -->
+    <uses-permission android:name="pleos.car.permission.CAR_WINDOWS" />  <!-- 앞유리 와이퍼 상태 -->
+    <!-- Pleos 음성 합성·인식 -->
+    <uses-permission android:name="pleos.car.permission.TTS_SERVICE" />
+    <uses-permission android:name="pleos.car.permission.STT_SERVICE" />
+    <!-- '말로 다시 듣기': 안내 직후 5초만 듣고, 소리는 저장하지 않음 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- Pleos NaviHelper SDK: 경로·다음 동작 조회 -->
+    <uses-permission android:name="pleos.car.permission.NAVI_ROUTE" />
+    <!-- 차량 속도 (안드로이드 자동차 기본 정보) -->
+    <uses-permission android:name="android.car.permission.CAR_SPEED" />
+    <uses-permission android:name="android.car.permission.CAR_POWERTRAIN" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!-- 주차 위치 보기(지도 앱)·결과 공유·음성 인식 앱이 있는지 확인하기 위함 -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="geo" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.SEND" />
+            <data android:mimeType="text/plain" />
+        </intent>
+        <intent>
+            <action android:name="android.speech.RecognitionService" />
+        </intent>
+    </queries>
+
+    <application
+        android:allowBackup="false"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.Yeopjari"
+        android:supportsRtl="true">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:screenOrientation="landscape"
+            android:resizeableActivity="true">
+            <!-- 주행 중에도 화면을 보여 주기 위한 표시 (주행 중에는 터치 조작이 없는 화면만 노출) -->
+            <meta-data android:name="distractionOptimized" android:value="true" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
